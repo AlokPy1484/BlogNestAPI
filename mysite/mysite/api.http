@@ -1,0 +1,51 @@
+
+
+### Checking JWT Auth 
+POST http://127.0.0.1:8000/api/token/ HTTP/1.1 
+Content-Type: application/json
+
+{
+    "username": "meow",
+    "password": "@QWER1234"
+}
+
+
+### Sending comment using API
+POST http://127.0.0.1:8000/blogposts/ HTTP/1.1 
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwMTQ2MDkyLCJpYXQiOjE3NjAxNDU3OTIsImp0aSI6IjdjNWMyNjc5ODk0NDRjYTA5MTU3NDJjMjkxNmZkMTU5IiwidXNlcl9pZCI6IjcifQ.AWf9UtQrbV9A0rwV7IVfchNRjkX-uwu2Aq7R-RM_XnM
+
+{    
+    "title": "Checking if auto userID feature is working or not(user:pikachu) via JWT",
+    "content": "checking if userID could be fetched automatically from JWT access token"
+}
+
+###
+GET http://127.0.0.1:8000/blogposts/my HTTP/1.1 
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU4NzM4OTU0LCJpYXQiOjE3NTg3Mzg2NTQsImp0aSI6IjAwMzhiNDk0Nzg2ZjRlZDE5ZGJmZmEyZWZkYzk2MjBhIiwidXNlcl9pZCI6IjEifQ.VZICOhmN2RYp3sEgHRgIREMT4FuosBNbjxUngKx2CUE
+
+
+
+
+
+POST http://127.0.0.1:8000/comment/blog/ HTTP/1.1 
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwMTQ2MDkyLCJpYXQiOjE3NjAxNDU3OTIsImp0aSI6IjdjNWMyNjc5ODk0NDRjYTA5MTU3NDJjMjkxNmZkMTU5IiwidXNlcl9pZCI6IjcifQ.AWf9UtQrbV9A0rwV7IVfchNRjkX-uwu2Aq7R-RM_XnM
+{    
+    "title": "Checking if auto userID feature is working or not(user:pikachu) via JWT",
+    "content": "sending"
+}
+
+###
+POST http://127.0.0.1:8000/register/ HTTP/1.1 
+Content-Type: application/json
+
+{"username" : "redpanda",
+"password": "@QWER1234"}
+
+
+
+
+
+
