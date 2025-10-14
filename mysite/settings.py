@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-ljty@hqqrbqavec!fz0k7a4a19g#mbk-r000o^^t=x64gp4*az
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['blognestapi-production.up.railway.app']
+ALLOWED_HOSTS = ['blognestapi-production.up.railway.app','blognestapi.onrender.com']
 
 
 # Application definition
