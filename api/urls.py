@@ -14,11 +14,11 @@ urlpatterns = [
 
     #when user goes to'/blogposts/3' it will allow them to cRUD that blog
     path("blogposts/<int:pk>/", views.BlogPostRetrieveUpdateDestory.as_view(),
-         name="update",
+         name="blog-detail",
          ),
      #BlogPostRetrieve
      path("blogposts/all/", views.BlogPostList.as_view(),
-          name="view",
+          name="blog-all",
      ),
 
     path("blogposts/my", views.BlogPostUserList.as_view(),
@@ -30,14 +30,14 @@ urlpatterns = [
 
 
     
-    path("comment/", views.CommentCreate.as_view(), name="comment-view-create"),
+    path("comment/", views.CommentCreate.as_view(), name="comment-create"),
 
     path("comment/all", views.CommentList.as_view(), name="comment-view"),
 
     #when user goes to'/blogposts/3' it will allow them to cRUD that blog
     path("comment/<int:pk>/", views.CommentRetrieveUpdateDestory.as_view(), name="update",),
     
-    path('comment/blog/<int:blog>', CommentBlogList.as_view(), name='blog-comments'),
+    path('comment/blog/<int:blog>', CommentBlogList.as_view(), name='comments-blog'),
 
 
 

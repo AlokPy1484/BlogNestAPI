@@ -116,7 +116,7 @@ class CommentBlogList(generics.ListAPIView):
     serializer_class = CommentSerializer
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['created']
-    pagination_class = CustomPagination
+    # pagination_class = CustomPagination
     ordering = ['-created']   
 
     def get_queryset(self):
@@ -127,7 +127,12 @@ class CommentBlogList(generics.ListAPIView):
 class CommentCreate(generics.CreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [IsAuthenticated]
+    
+    def get_permissions(self):
+        self.permission_classes = [AllowAny]
+        if self.request.method in ['PUT','PATCH','DELETE']:
+            self.permission_classes = [IsAuthenticated]
+        return super().get_permissions()
 
 
     def perform_create(self, serializer):
