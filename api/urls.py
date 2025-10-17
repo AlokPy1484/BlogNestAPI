@@ -18,7 +18,7 @@ urlpatterns = [
          ),
      #BlogPostRetrieve
      path("blogposts/all/", views.BlogPostList.as_view(),
-          name="blog-ali",
+          name="blog-all",
      ),
 
     path("blogposts/my", views.BlogPostUserList.as_view(),
