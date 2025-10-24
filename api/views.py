@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import generics,status,filters
+from rest_framework import generics, status, filters, viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, AllowAny
 from django.contrib.auth.models import User
@@ -9,6 +9,7 @@ from .models import Topic
 from .models import Category
 from .models import Profile
 from .models import Request
+from .models import Like
 from .serializers import BlogPostSerializer
 from .serializers import CommentSerializer
 from .serializers import TopicSerializer
@@ -18,7 +19,8 @@ from .serializers import RequestSerializer
 from rest_framework.views import APIView
 from .pagination import CustomPagination
 from .serializers import RegisterSerializer
-
+from .serializers import LikeSerializer
+from rest_framework.decorators import action 
 
 
 class RegisterView(generics.CreateAPIView):
@@ -78,7 +80,12 @@ class BlogPostList(generics.ListAPIView):
 #view to get blog made by loged in user
 class BlogPostUserList(generics.ListAPIView):
     serializer_class = BlogPostSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [ReadOnly]
+    # lookup_field = "pk"
+    def get(self, request, author_id):
+        posts = BlogPost.objects.filter(author_id = author_id)
+        serializer = BlogPostSerializer(posts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def get_queryset(self):
         user = self.request.user
@@ -98,6 +105,32 @@ class BlogPostSearchView(APIView):
 
         serializer = BlogPostSerializer(blog_posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class BlogPostLikeView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = BlogPostSerializer
+
+    def post(self, request, *args, **kwargs):
+
+        blog_id = self.kwargs.get("pk")
+        user = request.user
+
+        try: 
+            #get blog from Blogpost model with blog_id = pk
+            blog = BlogPost.objects.get(pk=blog_id)
+        except: 
+            return Response({"error:" "Blog not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+        #if in db then fetch otherwise create 
+        like, created = Like.objects.get_or_create(user=user, blog=blog)
+
+        if not created:
+            like.delete()
+            return Response({"liked": False, "message": "Unliked successful"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"liked": True, "message": "Liked successfully"}, status=status.HTTP_201_CREATED)
+
         
 
 
@@ -194,18 +227,19 @@ class CategoryRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 class ProfileListCreate(generics.ListCreateAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    permission_classes = [IsAuthenticated|ReadOnly]
+    # permission_classes = [IsAuthenticated|ReadOnly]
+    # def perform_create(self, serializer):
+    #     # Automatically set author to the currently logged-in user
+    #     serializer.save(user=self.request.user)
 
 #get specific topic & cRUD
 class ProfileRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [IsAuthenticated|ReadOnly]
-    lookup_field = "pk"
+    lookup_field = "user"
 
 
-
-#
 class RequestListCreate(generics.ListCreateAPIView):
     queryset = Request.objects.all()
     serializer_class = RequestSerializer
@@ -217,3 +251,43 @@ class RequestRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = RequestSerializer
     permission_classes = [IsAuthenticated|ReadOnly]
     lookup_field = "pk"
+
+
+# class LikeCreateAPI(generics.CreateAPIView):
+#     queryset = Like.objects.all()
+#     serializer_class = LikeSerializer
+#     permission_classes = [IsAuthenticated]
+
+# class LikeRetrieveUpdateDestroyAPI(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Like.objects.all()
+#     serializer_class = LikeSerializer
+#     permission_classes = [IsAuthenticated | ReadOnly]
+#     lookup_field = "blog"
+
+class LikeViewSet(viewsets.ModelViewSet):
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
+    permission_classes = [AllowAny]
+
+    # @action(detail=False, methods=['get'], url_path='user/(?P<user_id>[^/.]+)')
+    # def get_by_user(self, request, user_id=None):
+    #     likes = self.queryset.filter(user_id=user_id)
+    #     serializer = self.get_serializer(likes, many=True)
+    #     return Response(serializer.data)
+    @action(detail=False, methods=['get'], url_path='user/(?P<user_id>[^/.]+)')
+    def get_by_user(self, request, user_id=None):
+        liked_blog_ids = Like.objects.filter(user=user_id).values_list('blog', flat=True)
+        blogs = BlogPost.objects.filter(id__in=liked_blog_ids)
+        serializer = BlogPostSerializer(blogs, many=True)
+        return Response(serializer.data)
+    
+    @action(detail=False, methods=['get'], url_path='blog/(?P<blog_id>[^/.]+)')
+    def get_by_blog(self, request, blog_id=None):
+        likes = self.queryset.filter(blog_id=blog_id)
+        serializer = self.get_serializer(likes, many=True)
+        user = request.user
+        liked = self.queryset.filter(user=user, blog_id=blog_id).exists()
+        return Response({"isLiked" :liked},status=status.HTTP_200_OK)
+
+ 
+

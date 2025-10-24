@@ -1,9 +1,13 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from .views import BlogPostSearchView 
 from .views import BlogPostList
 from .views import CommentBlogList
+from .views import BlogPostLikeView
+from rest_framework.routers import DefaultRouter
 
+router = DefaultRouter()
+router.register('like', views.LikeViewSet)
 
 
 urlpatterns = [
@@ -13,19 +17,15 @@ urlpatterns = [
     path("blogposts/", views.BlogPostCreate.as_view(), name="blogpost-view-create"),
 
     #when user goes to'/blogposts/3' it will allow them to cRUD that blog
-    path("blogposts/<int:pk>/", views.BlogPostRetrieveUpdateDestory.as_view(),
-         name="blog-detail",
-         ),
+    path("blogposts/<int:pk>/", views.BlogPostRetrieveUpdateDestory.as_view(), name="blog-detail",),
      #BlogPostRetrieve
-     path("blogposts/all/", views.BlogPostList.as_view(),
-          name="blog-ali",
-     ),
+     path("blogposts/all/", views.BlogPostList.as_view(), name="blog-all",),
 
-    path("blogposts/my", views.BlogPostUserList.as_view(),
-            name="view",
-     ),
+    path("blogpost/user/<int:author_id>", views.BlogPostUserList.as_view(),name="view",),
 
     path('blogposts/search/', BlogPostSearchView.as_view(), name='blogpost-search'),
+
+    path('blogpost/<int:pk>/like/', BlogPostLikeView.as_view(), name='toggle-like'),
 
 
 
@@ -54,7 +54,7 @@ path("category/<int:pk>/", views.CategoryRetrieveUpdateDestroy.as_view(), name="
 
 #
 path("profiles/", views.ProfileListCreate.as_view(), name="profile-list-create"), 
-path("profile/<int:pk>/", views.ProfileRetrieveUpdateDestroy.as_view(), name="profile-update-delete"), 
+path("profile/<int:user>/", views.ProfileRetrieveUpdateDestroy.as_view(), name="profile-update-delete"), 
 
 
 #
@@ -62,12 +62,12 @@ path("requests/", views.RequestListCreate.as_view(), name="request-list-create")
 path("request/<int:pk>/", views.RequestRetrieveUpdateDestroy.as_view(), name="request-update-delete"), 
 
 
+# path("blogpost/like", views.LikeCreateAPI.as_view(), name="like-create"),
+# path("blogpost/like/<int:blog>", views.LikeRetrieveUpdateDestroyAPI.as_view(), name="like--get-update")
 
 
-
-
-
-
-
+path('', include(router.urls)),
 
 ]
+
+urlpatterns += router.urls

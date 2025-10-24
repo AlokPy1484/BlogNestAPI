@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,6 +81,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+        
     }
 }
 
@@ -135,4 +137,15 @@ REST_FRAMEWORK = {
     ]
 }
 
+
+
+SIMPLE_JWT = {
+    # Access token lifetime
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),  # default is 5 minutes
+    # Refresh token lifetime
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7), }
+
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+CORS_ALLOW_CREDENTIALS = True

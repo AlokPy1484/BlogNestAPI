@@ -7,6 +7,7 @@ from .models import Topic
 from .models import Category
 from .models import Profile
 from .models import Request
+from .models import Like
 
 
 
@@ -29,7 +30,9 @@ class RegisterSerializer(serializers.ModelSerializer):
 class BlogPostSerializer(serializers.ModelSerializer):
 
     #prevent client from passing userid themselve 
-    author = serializers.ReadOnlyField(source='author.username')
+    # author = serializers.ReadOnlyField(source='author.username')
+    author_name = serializers.ReadOnlyField(source='author.username')
+
 
     date_since = serializers.SerializerMethodField()
 
@@ -84,9 +87,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
 
-
-    # user = serializers.ReadOnlyField(source='author.username')
-
+    user_name = serializers.ReadOnlyField(source='user.username')
+    
     class Meta:
         model = Profile
     
@@ -98,6 +100,15 @@ class RequestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Request
+    
+        #id feild is auto added to our models we dont need to specifiy that
+        fields = '__all__'
+
+
+class LikeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Like
     
         #id feild is auto added to our models we dont need to specifiy that
         fields = '__all__'
