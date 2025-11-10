@@ -88,29 +88,14 @@ class Request(models.Model):
         unique_together = ("requester", "responder")
 
 class Notification(models.Model):
-    NOTIFICATION_TYPE = [
-        ("system", "System"),
-        ("like", "Like"),
-        ("comment", "Comment"),
-        ("follow", "Follow"),
-    ]
 
-    recipoent = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="notification")
-    sender = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True, related_name="sent_notification")
-    notification_type = models.CharField(max_length=20, choices=NOTIFICATION_TYPE)
-
-    blog = models.ForeignKey(BlogPost, on_delete=models.CASCADE, null=True, blank=True)
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True, blank=True)
-
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name="notification")
     message = models.CharField(max_length=255, blank=True)
     is_read = models.BooleanField(default=False)
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"{self.notification_type} to {self.recipient}"
-
-
-
+        return self.message
