@@ -170,4 +170,5 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLERK_JWKS_URL = "https://square-lemming-22.clerk.accounts.dev/.well-known/jwks.json"
 CLERK_ISSUER = "https://square-lemming-22.clerk.accounts.dev"
+CLERK_SECRET_KEY="sk_test_g07nwoGC5Tp9QZmOGTeyY7wTwKWRzPOwVeUhxIqnp0"
 
