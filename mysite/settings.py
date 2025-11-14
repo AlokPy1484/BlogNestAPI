@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,9 +39,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "api",
     "rest_framework",
     "corsheaders",
+    'cloudinary',
+    'cloudinary_storage',
+    'api.apps.ApiConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -132,11 +136,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         # 'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        "mysite.authentication.ClerkAuthentication",
     ]
 }
-
 
 
 SIMPLE_JWT = {
@@ -149,3 +153,22 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 
 CORS_ALLOW_CREDENTIALS = True
+
+
+MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dvclqzpkz',
+    'API_KEY': '366296185635783',
+    'API_SECRET': 'MDBKGI6hodKHnm8FccPEtXRhkm4',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+CLERK_JWKS_URL = "https://square-lemming-22.clerk.accounts.dev/.well-known/jwks.json"
+CLERK_ISSUER = "https://square-lemming-22.clerk.accounts.dev"
+CLERK_SECRET_KEY="sk_test_g07nwoGC5Tp9QZmOGTeyY7wTwKWRzPOwVeUhxIqnp0"
+
