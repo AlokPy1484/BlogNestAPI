@@ -30,13 +30,9 @@ Designed with scalability and performance in mind, the API ensures smooth commun
 
 ### **Backend**
 - **Python 3**
-- **Django**
 - **Django REST Framework**
-- **Django CORS Headers**
 - **Django ORM**
-
-### **Database**
-- **PostgreSQL** (Render-hosted)
+- 
 
 ### **Deployment**
 - **Render Web Service**
