@@ -79,8 +79,17 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        'NAME': 'blognest_api_db',
+
+        'USER': 'blognest_api_db_user',
+
+        'PASSWORD': 'dpg-d4dku695pdvs73atm9rg-a',
+
+        'HOST': 'dpg-d4dku695pdvs73atm9rg-a',
+
+        'PORT': '5432',
+
         
     }
 }
@@ -149,3 +158,25 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 
 CORS_ALLOW_CREDENTIALS = True
+<<<<<<< Updated upstream
+=======
+
+
+MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dvclqzpkz',
+    'API_KEY': '366296185635783',
+    'API_SECRET': 'MDBKGI6hodKHnm8FccPEtXRhkm4',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+CLERK_JWKS_URL = "https://square-lemming-22.clerk.accounts.dev/.well-known/jwks.json"
+CLERK_ISSUER = "https://square-lemming-22.clerk.accounts.dev"
+CLERK_SECRET_KEY="sk_test_g07nwoGC5Tp9QZmOGTeyY7wTwKWRzPOwVeUhxIqnp0"
+
+>>>>>>> Stashed changes
