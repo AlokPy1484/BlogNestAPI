@@ -4,10 +4,7 @@ environs
 django-cors-headers
 djangorestframework-simplejwt
 gunicorn
-<<<<<<< Updated upstream
-=======
 Pillow
 cloudinary
 django_cloudinary_storage
 python-jose
->>>>>>> Stashed changes

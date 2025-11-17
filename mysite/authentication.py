@@ -67,6 +67,8 @@ class ClerkAuthentication(authentication.BaseAuthentication):
 
 
 
+
+
         # Optionally, create or get local user
         from django.contrib.auth.models import User
         user, _ = User.objects.get_or_create(username=username)
