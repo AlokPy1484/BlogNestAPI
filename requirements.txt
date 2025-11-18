@@ -8,3 +8,4 @@ Pillow
 cloudinary
 django_cloudinary_storage
 python-jose
+psycopg
