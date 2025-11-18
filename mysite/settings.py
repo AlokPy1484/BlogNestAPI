@@ -88,7 +88,7 @@ DATABASES = {
 
         'USER': 'blognest_api_db_user',
 
-        'PASSWORD': 'dpg-d4dku695pdvs73atm9rg-a',
+        'PASSWORD': 'fp1y20lbWDmlNfLV9zCSXY3tSoBcm9R6',
 
         'HOST': 'dpg-d4dku695pdvs73atm9rg-a',
 
