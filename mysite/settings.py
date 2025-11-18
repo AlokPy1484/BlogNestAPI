@@ -83,9 +83,16 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-        
+        "ENGINE": "django.db.backends.postgresql",
+        'NAME': 'blognest_api_db',
+
+        'USER': 'blognest_api_db_user',
+
+        'PASSWORD': 'dpg-d4dku695pdvs73atm9rg-a',
+
+        'HOST': 'dpg-d4dku695pdvs73atm9rg-a',
+
+        'PORT': '5432',   
     }
 }
 
