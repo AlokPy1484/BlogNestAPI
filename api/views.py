@@ -10,12 +10,14 @@ from .models import Category
 from .models import Profile
 from .models import Request
 from .models import Like
+from .models import Notification
 from .serializers import BlogPostSerializer
 from .serializers import CommentSerializer
 from .serializers import TopicSerializer
 from .serializers import CategorySerializer
 from .serializers import ProfileSerializer
 from .serializers import RequestSerializer
+from .serializers import NotificationSerializer
 from rest_framework.views import APIView
 from .pagination import CustomPagination
 from .serializers import RegisterSerializer
@@ -264,6 +266,22 @@ class RequestRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 #     permission_classes = [IsAuthenticated | ReadOnly]
 #     lookup_field = "blog"
 
+
+
+class NotificationListCreate(generics.ListCreateAPIView):
+    queryset = Notification.objects.all()
+    serializer_class = NotificationSerializer
+    
+class NotificationUserView(generics.ListAPIView):
+    queryset = Notification.objects.all()
+    serializer_class = NotificationSerializer
+    permission_classes = [IsAuthenticated]
+    # lookup_field = "user"
+
+    def get_queryset(self):
+        user = self.request.user
+        return Notification.objects.filter(recipient=user)
+
 class LikeViewSet(viewsets.ModelViewSet):
     queryset = Like.objects.all()
     serializer_class = LikeSerializer
@@ -288,6 +306,10 @@ class LikeViewSet(viewsets.ModelViewSet):
         user = request.user
         liked = self.queryset.filter(user=user, blog_id=blog_id).exists()
         return Response({"isLiked" :liked},status=status.HTTP_200_OK)
+    
+
+
+
 
  
 
