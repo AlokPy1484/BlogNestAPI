@@ -8,6 +8,7 @@ from .models import Category
 from .models import Profile
 from .models import Request
 from .models import Like
+from .models import Notification
 
 
 
@@ -112,6 +113,15 @@ class LikeSerializer(serializers.ModelSerializer):
     
         #id feild is auto added to our models we dont need to specifiy that
         fields = '__all__'
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Notification
+    
+        fields = '__all__'
+
 
 
 

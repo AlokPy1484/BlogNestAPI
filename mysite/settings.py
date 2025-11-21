@@ -84,14 +84,23 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        'NAME': 'blognest_api_db',
 
-        'USER': 'blognest_api_db_user',
+        'NAME': 'blognest_db_main_8ndq',
 
+<<<<<<< Updated upstream
         'PASSWORD': 'fp1y20lbWDmlNfLV9zCSXY3tSoBcm9R6',
+=======
+        'USER': 'blognest_db_main_8ndq_user',
+>>>>>>> Stashed changes
 
-        'HOST': 'dpg-d4dku695pdvs73atm9rg-a',
+        'PASSWORD': 'BTdUM8ycjk2WWFBJRAzfdKvNgmDBQrUG',
 
+<<<<<<< Updated upstream
+=======
+        'HOST': 'dpg-d4e6jbili9vc73amde2g-a.singapore-postgres.render.com',
+#postgresql://blognest_db_main_8ndq_user:BTdUM8ycjk2WWFBJRAzfdKvNgmDBQrUG@dpg-d4e6jbili9vc73amde2g-a.singapore-postgres.render.com/blognest_db_main_8ndq
+#
+>>>>>>> Stashed changes
         'PORT': '5432',   
     }
 }
