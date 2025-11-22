@@ -87,20 +87,13 @@ DATABASES = {
 
         'NAME': 'blognest_db_main_8ndq',
 
-<<<<<<< Updated upstream
-        'PASSWORD': 'fp1y20lbWDmlNfLV9zCSXY3tSoBcm9R6',
-=======
         'USER': 'blognest_db_main_8ndq_user',
->>>>>>> Stashed changes
 
         'PASSWORD': 'BTdUM8ycjk2WWFBJRAzfdKvNgmDBQrUG',
 
-<<<<<<< Updated upstream
-=======
         'HOST': 'dpg-d4e6jbili9vc73amde2g-a.singapore-postgres.render.com',
 #postgresql://blognest_db_main_8ndq_user:BTdUM8ycjk2WWFBJRAzfdKvNgmDBQrUG@dpg-d4e6jbili9vc73amde2g-a.singapore-postgres.render.com/blognest_db_main_8ndq
 #
->>>>>>> Stashed changes
         'PORT': '5432',   
     }
 }
