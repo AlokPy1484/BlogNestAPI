@@ -66,6 +66,10 @@ path("request/<int:pk>/", views.RequestRetrieveUpdateDestroy.as_view(), name="re
 # path("blogpost/like/<int:blog>", views.LikeRetrieveUpdateDestroyAPI.as_view(), name="like--get-update")
 
 
+path("notifications", views.NotificationListCreate.as_view(), name="notification-list-create"),
+path("notifications/user", views.NotificationUserView.as_view(), name="notification-list-user"),
+
+
 path('', include(router.urls)),
 
 ]
