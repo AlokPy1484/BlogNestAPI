@@ -85,13 +85,13 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
 
-        'NAME': 'blognestdatabase',
+        'NAME': 'postgres',
 
-        'USER': 'blognestdatabase_user',
+        'USER': 'postgres',
 
-        'PASSWORD': 'bo6KsiQT1dGhNpDLifSSmkNzUyVXad46',
+        'PASSWORD': '@Pandey1483',
 
-        'HOST': 'dpg-d6ferj9aae7s73913hkg-a.singapore-postgres.render.com',
+        'HOST': 'db.ztjmtzqqlxvsfuiuqxzb.supabase.co',
 #postgresql://blognest_db_main_8ndq_user:BTdUM8ycjk2WWFBJRAzfdKvNgmDBQrUG@dpg-d4e6jbili9vc73amde2g-a.singapore-postgres.render.com/blognest_db_main_8ndq
 #
         'PORT': '5432',   
