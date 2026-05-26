@@ -85,15 +85,14 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
 
-        'NAME': 'postgres',
+        'NAME': 'blognestmockdb',
 
-        'USER': 'postgres',
+        'USER': 'blognestmockdb_user',
 
-        'PASSWORD': '@Pandey1483',
+        'PASSWORD': 'N6hBK6sYwGpt6JE4tI9BL6EPLJUy8cd1',
 
-        'HOST': 'db.ztjmtzqqlxvsfuiuqxzb.supabase.co',
+        'HOST': 'dpg-d8a4eu1kh4rs73e6jhbg-a.oregon-postgres.render.com',
 #postgresql://blognest_db_main_8ndq_user:BTdUM8ycjk2WWFBJRAzfdKvNgmDBQrUG@dpg-d4e6jbili9vc73amde2g-a.singapore-postgres.render.com/blognest_db_main_8ndq
-#
         'PORT': '5432',   
     }
 }
